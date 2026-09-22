@@ -51,7 +51,7 @@ jobs:
             cuda-version: "13.2.0"
             runs-on: ubuntu-24.04
           - target: x86_64-pc-windows-msvc
-            args: "--directml --cuda=13 --trt --nvrtx"
+            args: "--directml --cuda=13 --trt --nvrtx -N"
             static: true
             feature-set: cuda13,tensorrt,nvrtx,directml
             cuda-version: "13.2.0"
@@ -104,7 +104,7 @@ jobs:
             cuda-version: "13.2.0"
             runs-on: ubuntu-24.04
           - target: x86_64-pc-windows-msvc
-            args: "--nvrtx --directml"
+            args: "--nvrtx --directml -N"
             static: true
             feature-set: nvrtx,directml
             cuda-version: "13.2.0"

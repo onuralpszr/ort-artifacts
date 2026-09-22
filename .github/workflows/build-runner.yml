@@ -135,6 +135,10 @@ jobs:
           echo "Installing cmake 3.31.6 from custom tap..."
           brew install "$tap_name/cmake"
         shell: bash
+      - uses: ilammy/msvc-dev-cmd@v1
+        if: runner.os == 'Windows' && inputs.target == 'x86_64-pc-windows-msvc' && contains(format(' {0} ', inputs.args), ' -N ')
+        with:
+          arch: x64
       - name: Delete bad patch
         if: runner.os == 'Windows'
         run: del C:/Strawberry/c/bin/patch.exe

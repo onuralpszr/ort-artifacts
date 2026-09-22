@@ -149,7 +149,7 @@ await new Command()
 			if (options.cuda) {
 				cudaFlags.push('-ccbin', 'clang++-21');
 			}
-		} else if (platform === 'win32') {
+		} else if (platform === 'win32' && !(options.ninja && options.arch === 'x86_64')) {
 			args.push('-G', options.vs2026 ? 'Visual Studio 18 2026' : 'Visual Studio 17 2022');
 			if (options.arch === 'x86_64') {
 				args.push('-A', 'x64');
