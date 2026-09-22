@@ -98,6 +98,7 @@ await new Command()
 	.option('--nnapi', 'Enable NNAPI EP')
 	.option('-N, --ninja', 'build with ninja')
 	.option('--vs2026', 'Use Visual Studio 2026 generator')
+	.option('--nvcc-threads <threads:integer>', 'Number of threads nvcc uses per file', { default: 1 })
 	.option('--debug', 'Build with Debug config instead of Release')
 	.option('-A, --arch <arch:target-arch>', 'Configure target architecture for cross-compile', { default: 'x86_64' })
 	.action(async (options, ..._) => {
@@ -180,7 +181,7 @@ await new Command()
 		if (options.cuda) {
 			args.push('-Donnxruntime_USE_CUDA=ON');
 			// https://github.com/microsoft/onnxruntime/pull/20768
-			args.push('-Donnxruntime_NVCC_THREADS=1');
+			args.push(`-Donnxruntime_NVCC_THREADS=${options.nvccThreads}`);
 
 			const cudnnOutPath = join(root, 'cudnn');
 			let should_skip = await exists(cudnnOutPath);
