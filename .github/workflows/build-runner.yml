@@ -149,6 +149,13 @@ jobs:
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
         run: deno run -A src/build.ts -v ${{ inputs.onnxruntime-version }} ${{ inputs.static && '-s' || '' }} ${{ inputs.args || '' }}
+      - uses: actions/upload-artifact@v7
+        if: always() && contains(format(' {0} ', inputs.args), ' -N ')
+        with:
+          name: ninja-log-${{ inputs.target }}${{ inputs.feature-set != 'none' && format('+{0}', inputs.feature-set) || '' }}
+          path: onnxruntime/build/.ninja_log
+          include-hidden-files: true
+          if-no-files-found: warn
       - name: Attest build
         uses: actions/attest@v4
         with:
